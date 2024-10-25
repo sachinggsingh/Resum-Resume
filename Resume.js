@@ -318,7 +318,8 @@ document.getElementById('reset').addEventListener('click', function() {
     location.reload();
 });
 
-//for the character limit so the when the user downloads the resume as a PDF, the template becomes distorted will not happen
+
+//for the character limit
 const CHARACTER_LIMIT = 500;
 
 // Function to update character counter
