@@ -318,4 +318,42 @@ document.getElementById('reset').addEventListener('click', function() {
     location.reload();
 });
 
+//for the character limit so the when the user downloads the resume as a PDF, the template becomes distorted will not happen
+const CHARACTER_LIMIT = 500;
 
+// Function to update character counter
+function updateCharCounter(inputField, counterElement) {
+  const charCount = inputField.value.length;
+  const charLimit = CHARACTER_LIMIT;
+
+  if (charCount > charLimit) {
+    counterElement.style.color = 'red';
+  } else {
+    counterElement.style.color = 'black';
+  }
+
+  counterElement.textContent = `${charCount}/${charLimit}`;
+}
+
+// Function to restrict navigation to next step
+function restrictNavigation(nextStepButton, inputFields) {
+  const isWithinLimit = inputFields.every((field) => field.value.length <= CHARACTER_LIMIT);
+
+  if (!isWithinLimit) {
+    alert('Please ensure that all description fields are within the character limit.');
+    return false;
+  }
+}
+
+// Add event listeners
+document.getElementById('expdes').addEventListener('input', () => {
+  updateCharCounter(document.getElementById('expdes'), document.getElementById('expdes-counter'));
+});
+
+document.getElementById('projectdesc').addEventListener('input', () => {
+  updateCharCounter(document.getElementById('projectdesc'), document.getElementById('projectdesc-counter'));
+});
+
+document.getElementById('next-step-2').addEventListener('click', () => {
+  restrictNavigation(document.getElementById('next-step-2'), [document.getElementById('expdes'), document.getElementById('projectdesc')]);
+});
